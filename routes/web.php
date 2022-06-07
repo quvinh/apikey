@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,10 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
-Route::match(['get', 'post'], '/login', []);
-
-Route::middleware('auth')->group(function () {
-    // Route::get('/manage', [])
+Route::match(['get', 'post'], '/login', [HomeController::class, 'login'])->name('login');
+Route::get('/api/key', [HomeController::class, 'getKey']);
+Route::get('/api/list', [HomeController::class, 'showList']);
+Route::get('/api/refresh', [HomeController::class, 'refreshKey']);
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'] ,function () {
+    Route::get('/manage', [HomeController::class, 'list'])->name('admin.list');
+    Route::post('/add', [HomeController::class, 'addKey']);
+    Route::delete('/delete/{id}', [HomeController::class, 'deleteKey']);
 });
