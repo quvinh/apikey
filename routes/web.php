@@ -22,7 +22,7 @@ Route::get('/api/key', [HomeController::class, 'getKey']);
 Route::get('/api/list', [HomeController::class, 'showList']);
 Route::get('/api/refresh', [HomeController::class, 'refreshKey']);
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'] ,function () {
-    Route::get('/manage', [HomeController::class, 'list'])->name('admin.list');
+    Route::get('/', [HomeController::class, 'list'])->name('admin.list');
     Route::post('/add', [HomeController::class, 'addKey']);
     Route::delete('/delete/{id}', [HomeController::class, 'deleteKey']);
 });
