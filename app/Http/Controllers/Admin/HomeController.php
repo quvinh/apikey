@@ -92,12 +92,16 @@ class HomeController extends Controller
         // $url = 'https://pdftables.com/api/remaining?key='.$request->key;
         $url = Http::timeout(2)->get('https://pdftables.com/api/remaining?key='.$request->key)->json();
         if(is_numeric($url)) {
-            Key::create(array_merge(
-                $validator->validated(),
-                [
-                    'remain' => $url
-                ]
-            ));
+            // Key::create(array_merge(
+            //     $validator->validated(),
+            //     [
+            //         'remain' => $url
+            //     ]
+            // ));
+            $key = new Key();
+            $key->key = $request->key;
+            $key->remain = $url;
+            $key->save();
             
             return response()->json([
                 'status' => 'success',
