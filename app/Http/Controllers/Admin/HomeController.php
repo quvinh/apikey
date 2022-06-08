@@ -59,14 +59,16 @@ class HomeController extends Controller
     }
 
     public function showList() {
-        $data = Key::orderBy('remain', 'DESC')->get();
+        // $data = Key::orderBy('remain', 'DESC')->get();
+        $data = DB::table('keys')->select('remain', 'key', 'created_at')->orderByDesc('remain')->get();
         return response()->json([
             'data' => $data,
         ]);
     }
 
     public function getKey() {
-        $data = Key::orderBy('remain', 'DESC')->first();
+        // $data = Key::orderBy('remain', 'DESC')->first();
+        $data = DB::table('keys')->select('remain', 'key', 'created_at')->orderByDesc('remain')->first();
         $url = Http::timeout(2)->get('https://pdftables.com/api/remaining?key='.$data->key)->json();
         $data->update([
             'remain' => $url
