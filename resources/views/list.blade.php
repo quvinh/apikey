@@ -124,6 +124,7 @@
                                             <span class="input-group-text">Key</span>
                                         </div>
                                         <input type="text" class="form-control float-right" name="key" placeholder="Enter Key">
+                                        <input type="hidden" id="_token" value="{{ csrf_token() }}">
                                     </div>
                                 </div>
                             </div>
