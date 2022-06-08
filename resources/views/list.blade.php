@@ -300,7 +300,7 @@
                 var id_product = $('#del-id-key').val();
                 $.ajax({
                     type: 'DELETE',
-                    url: 'delete/' + id_product,
+                    url: '/admin/delete/' + id_product,
                     dataType: 'json',
                     success: function(res) {
                         Toast.fire({
@@ -322,7 +322,7 @@
                 let formData = new FormData(this);
                 $.ajax({
                     type: 'POST',
-                    url: 'add',
+                    url: '/admin/add',
                     data: formData,
                     contentType: false,
                     processData: false,
